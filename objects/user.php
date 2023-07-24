@@ -23,6 +23,7 @@ class User{
     // Query to find the user with the provided username
     $query = "SELECT * FROM " . $this->table_name . " WHERE username = ?";
     $stmt = $this->conn->prepare($query);
+   
     $stmt->bindParam(1, $this->username);
     $stmt->execute();
     
@@ -34,7 +35,8 @@ class User{
         // Verify the password
         if (password_verify($this->password, $row['password'])) {
             // Password is correct, login successful
-            return true;
+            
+            return $row;
         } else {
             // Password is incorrect
             return false;
