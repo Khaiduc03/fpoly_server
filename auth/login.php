@@ -23,17 +23,17 @@ $user->username = $data->username;
 $user->password = $data->password;
 
 
-// if ($_SERVER["REQUEST_METHOD"] === "POST") {
-//   // Get the form data
-//   $user->username = $_POST["username"];
-//   $user->password = $_POST["password"];
-// } else {
-//   http_response_code(400);
-//   echo json_encode(
-//       array("message" => "Invalid request method")
-//   );
-//   exit;
-// }
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  // Get the form data
+  $user->username = $_POST["username"];
+  $user->password = $_POST["password"];
+} else {
+  http_response_code(400);
+  echo json_encode(
+      array("message" => "Invalid request method")
+  );
+  exit;
+}
 // query user
 
 // check if more than 0 record found
@@ -60,8 +60,7 @@ if($userData = $user->login()){
   http_response_code(200);
   echo json_encode(
       array(
-          "status" => 200,
-          "message" => "login success",
+          
           "access_token" => $jwt // Trả về JWT cho client
       )
   );

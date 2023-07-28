@@ -19,6 +19,7 @@ $userData = authenticate();
 $database = new Database();
 $db = $database->getConnection();
 
+
 // initialize object
 $category = new Category($db);
 

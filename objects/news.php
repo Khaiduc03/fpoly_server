@@ -8,65 +8,49 @@ class News{
   public $image;
   public $category_id;
   public $created_date;
+  public $user_id;
   
   public function __construct($db){
     $this->conn = $db;
   }
 
-  function readAll(){
+  function getAll(){
     $query = "SELECT
                 *
             FROM
                 " . $this->table_name . "
             ORDER BY
-                created_date DESC";
+            create_date DESC";
   
     // prepare query statement
     $stmt = $this->conn->prepare( $query );
   
     // execute query
     $stmt->execute();
-  
+   
     return $stmt;
   }
 
-  // create news
-  function create(){
-    // query to insert record
-    $query = "INSERT INTO
+
+public function create(){
+  $query = "INSERT INTO
                 " . $this->table_name . "
             SET
-                title=:title, body=:body, image=:image, category_id=:category_id, created_date=:created_date";
-  
-    // prepare query
-    $stmt = $this->conn->prepare($query);
-  
-    // sanitize
-    $this->title=htmlspecialchars(strip_tags($this->title));
-    $this->body=htmlspecialchars(strip_tags($this->body));
-    $this->image=htmlspecialchars(strip_tags($this->image));
-    $this->category_id=htmlspecialchars(strip_tags($this->category_id));
-    $this->created_date=htmlspecialchars(strip_tags($this->created_date));
-  
-    // bind values
-    $stmt->bindParam(":title", $this->title);
-    $stmt->bindParam(":body", $this->body);
-    $stmt->bindParam(":image", $this->image);
-    $stmt->bindParam(":category_id", $this->category_id);
-    $stmt->bindParam(":created_date", $this->created_date);
-  
-    // execute query
-    if($stmt->execute()){
-        return true;
-    }
-  
-    return false;
-      
-  }
-  
+                title= ?, body= ?, image= ?, category_id= ?, user_id= ?, create_date=now(); ";
+  $stmt = $this->conn->prepare($query);
 
+  // Bind giá trị
+  $stmt->bindValue(1, $this->title);
+  $stmt->bindValue(2, $this->body);
+  $stmt->bindValue(3, $this->image);
+  $stmt->bindValue(4, $this->category_id);
+  $stmt->bindValue(5, $this->user_id);
+  // Thực thi câu truy vấn
+  if ($stmt->execute()) {
+    return true;
+} 
 
-
-  
+return false;
+}
 }
 ?>

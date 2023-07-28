@@ -15,7 +15,7 @@ CREATE TABLE `news` (
   `id` INT UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `title` VARCHAR(255) NOT NULL,
-  `create_date` DATE NOT NULL,
+  `create_date` DATE ,
   `body` TEXT NOT NULL,
   `image` VARCHAR(255),
   `category_id` INT NOT NULL
@@ -138,7 +138,7 @@ VALUES
   (10, 1, 2, 1, 'Room 110', 'Hall J', true);
 
 -- Dummy data for the `Time` table
-INSERT INTO `Time` (`id`, `time_start`, `time_end`, `date`)
+INSERT INTO `time` (`id`, `time_start`, `time_end`, `date`)
 VALUES
   (1, '08:00:00', '09:30:00', '2023-07-25'),
   (2, '10:00:00', '11:30:00', '2023-07-26'),
